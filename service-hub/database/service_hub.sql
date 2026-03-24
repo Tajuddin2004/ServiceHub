@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2026 at 07:05 PM
+-- Generation Time: Mar 24, 2026 at 08:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `service-hub`
+-- Database: `service_hub`
 --
 
 -- --------------------------------------------------------
@@ -54,6 +54,29 @@ CREATE TABLE `bookings` (
 -- Dumping data for table `bookings`
 --
 
+INSERT INTO `bookings` (`booking_id`, `consumer_id`, `provider_id`, `service_id`, `booking_date`, `payment_method`, `payment_status`, `booking_time`, `address`, `pincode`, `problem_description`, `total_amount`, `status`, `created_at`, `service_charge`, `gst_amount`, `material_charge`, `contact_phone`, `provider_note`, `closed_at`) VALUES
+(19, 24, NULL, 1, '2026-03-10', 'cod', 'cancelled', NULL, 'ganpat uni', '384012', 'qwtuga', NULL, 'cancelled', '2026-03-10 05:41:33', NULL, NULL, NULL, '+911234567890', NULL, '2026-03-10 11:12:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `email_otps`
+--
+
+CREATE TABLE `email_otps` (
+  `id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `otp` varchar(6) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `email_otps`
+--
+
+INSERT INTO `email_otps` (`id`, `email`, `otp`, `expires_at`, `created_at`) VALUES
+(6, 'tajuddin.green@gmail.com', '083781', '2026-03-15 17:53:11', '2026-03-15 16:43:11');
 
 -- --------------------------------------------------------
 
@@ -70,12 +93,6 @@ CREATE TABLE `payments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `payments`
---
-
-
-
 -- --------------------------------------------------------
 
 --
@@ -90,7 +107,7 @@ CREATE TABLE `reviews` (
   `rating` int(11) DEFAULT NULL,
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,6 +167,11 @@ CREATE TABLE `service_providers` (
 
 --
 -- Dumping data for table `service_providers`
+--
+
+INSERT INTO `service_providers` (`provider_id`, `user_id`, `age`, `specialization`, `experience`, `area`, `id_proof`, `is_approved`, `profession`, `about_work`, `pincode`, `phone`) VALUES
+(6, 23, 22, NULL, 5, NULL, NULL, 1, 'Electrician', 'Good Work profile', '384012', '1234567890');
+
 -- --------------------------------------------------------
 
 --
@@ -173,8 +195,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `phone`, `password`, `role`, `status`, `created_at`, `is_active`) VALUES
-(2, 'SK TAJUDDIN', 'tajuddin@servicehub.com', NULL, '$2y$10$nSffPBIoXk1AEDkHkQtxfeznshq.ujkMkovbJWd8Tq/hf1wlexRLm', 'consumer', 1, '2026-01-10 10:25:44', 1),
-(1, 'Admin', 'admin@servicehub.com', NULL, '$2y$10$yZxk4Dq5BVTv8bCZMjINL.O24KBLPcW1BMkqGxLP9v5O73rgCGAiC', 'admin', 1, '2026-01-11 15:50:46', 1);
+(1, 'Admin', 'team110.servicehub@gmail.com', NULL, '$2y$10$yZxk4Dq5BVTv8bCZMjINL.O24KBLPcW1BMkqGxLP9v5O73rgCGAiC', 'admin', 1, '2026-01-11 15:50:46', 1),
+(2, 'SK TAJUDDIN', 'tajuddin@servicehub.com', '1234567890', '$2y$10$yZxk4Dq5BVTv8bCZMjINL.O24KBLPcW1BMkqGxLP9v5O73rgCGAiC', 'consumer', 1, '2026-01-10 10:25:44', 1),
+(22, 'SK TAJUDDIN', 's19236094@gmail.com', NULL, '$2y$10$DhK60LT5p4F2eGZGejjEiuncCRm02Trnb./yRCZ5S872H3YbDDYFq', 'consumer', 1, '2026-03-07 09:37:40', 1),
+(23, 'John Doe', 'tajuddin.green@gmail.com', NULL, '$2y$10$mbH34ROPL/2KG.Z9/ls6X.pqbAQ4O2Hhp6pNp.dRiaeZIvIwkgOe.', 'provider', 1, '2026-03-07 10:06:23', 1),
+(24, 'SK TAJUDDIN', '23012011132@gnu.ac.in', NULL, '$2y$10$dIFDF3hvdWG9LrfqzgE.K.YGofLQqj7QfAkPmMJBM9n7KpXO3szGy', 'consumer', 1, '2026-03-10 05:40:10', 1);
 
 --
 -- Indexes for dumped tables
@@ -188,6 +213,14 @@ ALTER TABLE `bookings`
   ADD KEY `fk_booking_consumer` (`consumer_id`),
   ADD KEY `fk_booking_service` (`service_id`),
   ADD KEY `fk_booking_provider` (`provider_id`);
+
+--
+-- Indexes for table `email_otps`
+--
+ALTER TABLE `email_otps`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uq_email` (`email`),
+  ADD KEY `idx_email` (`email`);
 
 --
 -- Indexes for table `payments`
@@ -237,7 +270,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `email_otps`
+--
+ALTER TABLE `email_otps`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -261,13 +300,13 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `service_providers`
 --
 ALTER TABLE `service_providers`
-  MODIFY `provider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `provider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
@@ -280,26 +319,6 @@ ALTER TABLE `bookings`
   ADD CONSTRAINT `fk_booking_consumer` FOREIGN KEY (`consumer_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `fk_booking_provider` FOREIGN KEY (`provider_id`) REFERENCES `service_providers` (`provider_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_booking_service` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`);
-
---
--- Constraints for table `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `fk_payment_booking` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `fk_reviews_booking` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_reviews_consumer` FOREIGN KEY (`consumer_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `fk_reviews_provider` FOREIGN KEY (`provider_id`) REFERENCES `users` (`user_id`);
-
---
--- Constraints for table `service_providers`
---
-ALTER TABLE `service_providers`
-  ADD CONSTRAINT `service_providers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
