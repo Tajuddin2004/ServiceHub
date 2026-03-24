@@ -72,8 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +96,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated gradient background */
+/* Animated gradient background - ORIGINAL */
 .bg-gradient {
     position: fixed;
     top: 0;
@@ -128,7 +126,7 @@ body {
     66% { transform: translate(-20px, 20px) rotate(240deg); }
 }
 
-/* Floating orbs */
+/* Floating orbs - ORIGINAL */
 .orb {
     position: fixed;
     border-radius: 50%;
@@ -172,79 +170,114 @@ body {
     z-index: 1;
 }
 
-/* Login card */
+/* Modern login card */
 .login-card {
     width: 100%;
-    max-width: 480px;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 460px;
+    background: rgba(13, 13, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
     border-radius: 24px;
-    padding: 3rem 2.5rem;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-    animation: fadeUp 0.8s ease-out;
+    overflow: hidden;
+    padding: 0;
+    box-shadow:
+        0 0 0 1px rgba(168, 85, 247, 0.15),
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(99, 102, 241, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
 }
 
-
+/* Animated rainbow top border */
 .login-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; 
+    left: 0; 
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #6366f1, #a855f7, #22d3ee);
-    border-radius: 24px 24px 0 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6366f1, #a855f7, #22d3ee, #a855f7, #6366f1);
+    background-size: 200% auto;
+    animation: shimmer 4s linear infinite;
+    z-index: 2;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Logo section */
-.login-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.logo {
-    display: inline-flex;
+.logo-section {
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.8rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #22d3ee, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
+    padding: 3rem 2rem 2rem;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.15);
 }
 
 .logo-icon {
-    font-size: 2rem;
-    filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.6));
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+    box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(99, 102, 241, 0.3),
+        0 0 60px rgba(168, 85, 247, 0.2),
+        0 10px 40px rgba(0, 0, 0, 0.6);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 2px solid rgba(99, 102, 241, 0.2);
 }
 
-.login-header h2 {
+.logo-icon:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.5),
+        0 0 60px rgba(99, 102, 241, 0.5),
+        0 0 80px rgba(168, 85, 247, 0.3),
+        0 15px 50px rgba(0, 0, 0, 0.7);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Form section */
+.form-section {
+    padding: 2rem 2.5rem 2.5rem;
+}
+
+/* Header */
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
     color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
 }
 
-.login-header p {
+.form-header p {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
 }
 
 /* Alert */
 .alert {
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(239, 68, 68, 0.12);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #fca5a5;
     font-size: 0.9rem;
@@ -253,45 +286,70 @@ body {
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
 }
 
-/* Form */
+/* Form groups */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
 .form-label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.6rem;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-weight: 600;
 }
 
 .form-input {
     width: 100%;
-    padding: 1rem 1.2rem;
+    padding: 0.95rem 1.2rem;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1.5px solid rgba(99, 102, 241, 0.2);
     border-radius: 12px;
     color: #ffffff;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     font-family: inherit;
 }
 
 .form-input:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 
+        0 0 0 3px rgba(99, 102, 241, 0.15),
+        0 4px 12px rgba(99, 102, 241, 0.2);
+    transform: translateY(-1px);
 }
 
 .form-input::placeholder {
     color: rgba(255, 255, 255, 0.4);
+}
+
+/* Password wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+    padding: 0.25rem;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Button */
@@ -303,15 +361,19 @@ body {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
+    font-family: inherit;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #6366f1, #a855f7);
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
     color: #ffffff;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    box-shadow: 
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 8px 24px rgba(99, 102, 241, 0.4),
+        0 0 40px rgba(168, 85, 247, 0.2);
 }
 
 .btn-primary::before {
@@ -321,8 +383,8 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s ease;
 }
 
 .btn-primary:hover::before {
@@ -331,39 +393,88 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+    box-shadow: 
+        0 0 0 1px rgba(99, 102, 241, 0.4),
+        0 12px 32px rgba(99, 102, 241, 0.5),
+        0 0 60px rgba(168, 85, 247, 0.3);
 }
 
 .btn-primary:active {
     transform: translateY(0);
 }
 
-/* Divider */
-.divider {
+/* Links section */
+.form-links {
+    margin-top: 1.5rem;
     text-align: center;
-    margin: 1.5rem 0;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.9rem;
 }
 
-/* Links */
-.auth-link {
-    text-align: center;
-    margin-top: 1.5rem;
+.forgot-link {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.25s ease;
+    margin-bottom: 1.25rem;
+}
+
+.forgot-link:hover {
+    color: #22d3ee;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.divider span {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.signup-link {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
 }
 
-.auth-link a {
+.signup-link a {
     color: #22d3ee;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.auth-link a:hover {
+.signup-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #22d3ee, #a855f7);
+    transition: width 0.3s ease;
+}
+
+.signup-link a:hover {
     color: #a855f7;
-    text-decoration: underline;
+}
+
+.signup-link a:hover::after {
+    width: 100%;
 }
 
 /* Footer */
@@ -394,47 +505,41 @@ body {
 }
 
 .footer-copy {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.35);
     font-size: 0.8rem;
-}
-
-/* Password toggle */
-.password-wrapper {
-    position: relative;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-    padding: 0;
-}
-
-.password-toggle:hover {
-    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Responsive */
 @media (max-width: 576px) {
-    .login-card {
-        padding: 2.5rem 2rem;
+    .login-card { 
+        max-width: 100%; 
+        border-radius: 20px;
     }
-    
-    .auth-wrapper {
-        padding: 1.5rem;
+    .form-section { 
+        padding: 1.5rem 1.8rem 2rem; 
     }
-    
-    .orb-1, .orb-2 {
-        width: 300px;
-        height: 300px;
+    .logo-section { 
+        padding: 2.5rem 1.5rem 1.5rem; 
     }
+    .logo-icon { 
+        width: 100px; 
+        height: 100px; 
+    }
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+    .auth-wrapper { 
+        padding: 1rem; 
+    }
+    .orb-1, .orb-2 { 
+        width: 250px; 
+        height: 250px; 
+    }
+}
+
+/* Subtle 3D tilt effect */
+.login-card {
+    transition: transform 0.1s ease-out;
 }
 </style>
 </head>
@@ -446,67 +551,83 @@ body {
 
 <div class="auth-wrapper">
     <div class="login-card">
-
-         <!-- ⏱️ AUTO LOGOUT MESSAGE -->
-    <?php if ($timeoutMessage): ?>
-        <div class="alert alert-error">
-            You were logged out due to inactivity. Please sign in again.
-        </div>
-    <?php endif; ?>
-
-    <!-- Existing error message -->
-    <?php if (!empty($error)): ?>
-        <div class="alert alert-error">
-            <?= htmlspecialchars($error) ?>
-        </div>
-    <?php endif; ?>
-
-    <!-- Login header -->
-    <div class="login-header">
-        
-    </div>
-
-    <!-- Login form -->
-    <form method="POST" action="">
-        
-    </form>
-
-    
-        <div class="login-header">
-            <div class="logo">
-                <!--<span class="logo-icon">🏠</span>-->
-                🏠Service-Hub
-            </div>
-            <h2>Welcome back</h2>
-            <p>Sign in to manage your bookings and services</p>
+        <!-- Logo section -->
+        <div class="logo-section">
+            <img src="../assets/images/icon.jpeg" class="logo-icon" alt="Service-Hub">
         </div>
 
-
-
-        <form method="POST">
-            <div class="form-group">
-                <label class="form-label">Email address</label>
-                <input type="email" name="email" class="form-input" placeholder="you@example.com" required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <div class="password-wrapper">
-                    <input type="password" name="password" class="form-input" id="password" placeholder="Enter your password" required>
-                    <button type="button" class="password-toggle" onclick="togglePassword()">
-                        <span id="toggleIcon">👁️</span>
-                    </button>
+        <!-- Form section -->
+        <div class="form-section">
+            <!-- Auto logout message -->
+            <?php if (isset($timeoutMessage) && $timeoutMessage): ?>
+                <div class="alert">
+                    You were logged out due to inactivity. Please sign in again.
                 </div>
+            <?php endif; ?>
+
+            <!-- Error message -->
+            <?php if (isset($error) && !empty($error)): ?>
+                <div class="alert">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- Header -->
+            <div class="form-header">
+                <h2>Welcome back</h2>
+                <p>Sign in to manage your bookings and services</p>
             </div>
 
-            <button type="submit" class="btn btn-primary">
-                Sign in
-            </button>
+            <!-- Form -->
+            <form method="POST">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email address</label>
+                    <input 
+                        type="email" 
+                        id="email"
+                        name="email" 
+                        class="form-input" 
+                        placeholder="you@example.com" 
+                        required
+                        autocomplete="email"
+                    >
+                </div>
 
-            <div class="auth-link">
-                New to Service-Hub? <a href="register.php">Create an account</a>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input 
+                            type="password" 
+                            id="password"
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Enter your password" 
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()" aria-label="Toggle password visibility">
+                            <span id="toggleIcon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Sign in
+                </button>
+
+                <div class="form-links">
+                    <a href="forgot_password.php" class="forgot-link">Forgot password?</a>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <div class="signup-link">
+                        New to Service-Hub? <a href="register.php">Create an account</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -523,6 +644,7 @@ body {
 </footer>
 
 <script>
+// Password toggle
 function togglePassword() {
     const passwordInput = document.getElementById('password');
     const toggleIcon = document.getElementById('toggleIcon');
@@ -536,18 +658,45 @@ function togglePassword() {
     }
 }
 
-// Add floating animation to card on mouse move
+// Subtle 3D tilt effect on mouse move
 const card = document.querySelector('.login-card');
-document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-    const y = (e.clientY / window.innerHeight - 0.5) * 10;
-    card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+let bounds;
+
+function rotateCard(e) {
+    bounds = card.getBoundingClientRect();
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const leftX = mouseX - bounds.left;
+    const topY = mouseY - bounds.top;
+    const center = {
+        x: leftX - bounds.width / 2,
+        y: topY - bounds.height / 2
+    };
+    const distance = Math.sqrt(center.x**2 + center.y**2);
+    
+    card.style.transform = `
+        perspective(1000px)
+        rotateY(${center.x / 25}deg)
+        rotateX(${-center.y / 25}deg)
+        scale3d(1.01, 1.01, 1.01)
+    `;
+}
+
+function resetCard() {
+    card.style.transform = `
+        perspective(1000px)
+        rotateY(0deg)
+        rotateX(0deg)
+        scale3d(1, 1, 1)
+    `;
+}
+
+card.addEventListener('mouseenter', () => {
+    bounds = card.getBoundingClientRect();
 });
 
-// Reset transform when mouse leaves
-document.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-});
+card.addEventListener('mousemove', rotateCard);
+card.addEventListener('mouseleave', resetCard);
 </script>
 
 </body>

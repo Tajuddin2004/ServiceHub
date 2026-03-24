@@ -22,10 +22,15 @@ if (!$provider) {
 
 $providerId = $provider['provider_id'];
 
-/* 📅 Month filter */
+/* 📅 Month filter — validate format strictly before use */
 $selectedMonth = $_GET['month'] ?? date('Y-m');
+// Enforce YYYY-MM format (e.g. 2026-03). Reject anything else.
+if (!preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $selectedMonth)) {
+    $selectedMonth = date('Y-m');
+}
 $startDate = $selectedMonth . "-01";
-$endDate = date("Y-m-t", strtotime($startDate));
+$endDate   = date("Y-m-t", strtotime($startDate));
+
 
 /* ♾️ Lifetime earnings */
 $lifetimeSql = "

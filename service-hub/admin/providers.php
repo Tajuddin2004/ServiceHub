@@ -8,19 +8,24 @@ if (!isset($_SESSION['admin_logged_in'])) {
     exit;
 }
 
-/* 🔍 Status filter */
+/* 🔍 Status filter — whitelist only, NEVER interpolate user input into SQL */
 $statusFilter = $_GET['status'] ?? 'all';
 
-$where = "";
-if ($statusFilter === 'pending') {
-    $where = "AND sp.is_approved = 0";
-} elseif ($statusFilter === 'approved') {
-    $where = "AND sp.is_approved = 1";
-} elseif ($statusFilter === 'rejected') {
-    $where = "AND sp.is_approved = -1";
-}
+// Whitelist map: allowed filter values → safe SQL fragment (no user data)
+$allowedFilters = [
+    'pending'  => "AND sp.is_approved = 0",
+    'approved' => "AND sp.is_approved = 1",
+    'rejected' => "AND sp.is_approved = -1",
+    'all'      => "",
+];
 
-/* 📊 Fetch providers */
+// If anything outside the whitelist is passed, default to 'all'
+if (!array_key_exists($statusFilter, $allowedFilters)) {
+    $statusFilter = 'all';
+}
+$where = $allowedFilters[$statusFilter];
+
+/* 📊 Fetch providers — $where only contains our own hard-coded strings */
 $sql = "
 SELECT 
     u.user_id,
@@ -41,9 +46,9 @@ ORDER BY u.user_id DESC
 
 $result = $conn->query($sql);
 
-/* Get success/error messages */
+/* Get success/error messages — only compared against known string literals in HTML, never put in SQL */
 $success = $_GET['success'] ?? '';
-$error = $_GET['error'] ?? '';
+$error   = $_GET['error']   ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">

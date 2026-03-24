@@ -70,7 +70,7 @@ if (isset($_POST['change_password'])) {
 
         $success = "Password changed successfully.";
     }
-} */
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

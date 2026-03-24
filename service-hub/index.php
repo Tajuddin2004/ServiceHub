@@ -84,8 +84,16 @@ body {
 }
 
 .logo-icon {
-    font-size: 1.5rem;
-    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.5));
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 7px;
+    display: block;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
 }
 
 .nav-links {
@@ -476,8 +484,7 @@ body {
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
     <div class="logo">
-        <span class="logo-icon">🏠</span>
-        Service-Hub
+        <img src="assets/images/icon.jpeg" class="logo-icon" alt="Service-Hub">
     </div>
     <div class="nav-links">
         <a href="auth/login.php">Sign in</a>

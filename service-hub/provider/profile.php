@@ -407,7 +407,7 @@ input::placeholder, textarea::placeholder {
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
     <div class="logo">
-        🏠 Service-Hub
+        Service-Hub
     </div>
     <div class="nav-links">
         <a href="home.php" class="nav-btn btn-dashboard">← Dashboard</a>

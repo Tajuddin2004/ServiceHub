@@ -128,11 +128,16 @@ body {
 }
 
 .logo-icon {
-    font-size: 1.5rem;
-    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.5));
-    background: none;
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 7px;
+    display: block;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
 }
 
 .nav-links {
@@ -519,7 +524,6 @@ body {
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
     <div class="logo">
-        <span class="logo-icon">🏠</span>
         Service-Hub
     </div>
     <div class="nav-links">

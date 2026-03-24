@@ -467,7 +467,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <!-- Brand Section -->
         <div class="brand-section">
             <div class="admin-icon">
-                🛡️
+                <img src="../assets/images/icon.jpeg" style="width:72px;height:72px;object-fit:contain;border-radius:12px;" alt="Service-Hub">
             </div>
             <h1 class="brand-title">Admin Portal</h1>
             <p class="brand-subtitle">Service-Hub Management</p>

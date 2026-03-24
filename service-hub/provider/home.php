@@ -508,7 +508,7 @@ tbody tr:hover {
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
     <div class="logo">
-        🏠 Service-Hub
+        Service-Hub
     </div>
     <div class="nav-links">
         <a href="my_earning.php" class="nav-btn btn-earnings">💰 My Earnings</a>
